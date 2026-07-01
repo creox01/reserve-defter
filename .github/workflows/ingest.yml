@@ -1,0 +1,20 @@
+name: toplama
+on:
+  schedule:
+    - cron: "17 4 * * *"    # her gun 04:17 UTC = 07:17 TRT (sabah)
+    - cron: "47 16 * * *"   # her gun 16:47 UTC = 19:47 TRT (aksam)
+  workflow_dispatch: {}        # elle test icin
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/ingest.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
