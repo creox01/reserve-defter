@@ -1,0 +1,100 @@
+:root{
+  --bg:#141414;
+  --panel:#1c1c1c;
+  --line:#2e2e2e;
+  --ink:#e8e4dd;
+  --mut:#8f8a80;
+  --accent:#b08040;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Helvetica Neue",Arial,sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.mast{
+  border-bottom:1px solid var(--line);
+  padding:34px 24px 26px;
+  max-width:860px;
+  margin:0 auto;
+}
+.logo{height:38px;width:auto;display:block}
+.mast-sub{
+  margin:14px 0 0;
+  font-size:12px;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--mut);
+}
+.mast-tag{margin:16px 0 0;max-width:640px;color:var(--ink)}
+.mast-note{
+  margin:10px 0 0;
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.cats{
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:var(--bg);z-index:2;
+}
+.cats-scroll{
+  display:flex;gap:8px;overflow-x:auto;
+  padding:12px 24px;max-width:860px;margin:0 auto;
+}
+.chip{
+  flex:0 0 auto;
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--mut);
+  font:inherit;font-size:12px;
+  letter-spacing:.04em;
+  padding:6px 12px;cursor:pointer;
+  text-transform:uppercase;
+}
+.chip[aria-pressed="true"]{
+  background:var(--ink);color:var(--bg);border-color:var(--ink);
+}
+.wrap{max-width:860px;margin:0 auto;padding:24px}
+.card{
+  display:block;text-decoration:none;color:inherit;
+  border:1px solid var(--line);
+  padding:20px;margin:0 0 14px;
+  background:var(--panel);
+}
+.card:hover{border-color:var(--accent)}
+.eyebrow{
+  margin:0 0 8px;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--accent);
+}
+.card h2{margin:0;font-size:20px;font-weight:600;line-height:1.25}
+.dateline{margin:10px 0 0;font-size:12px;color:var(--mut)}
+article{border:1px solid var(--line);background:var(--panel);padding:28px}
+h1.post{font-size:28px;line-height:1.2;margin:6px 0 0}
+article p{margin:14px 0}
+article h2,article h3{
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin:26px 0 6px;
+}
+.source{
+  border-top:1px solid var(--line);
+  padding-top:14px;margin-top:26px;font-size:13px;color:var(--mut);
+}
+.source a,article a{color:var(--accent)}
+.back{
+  display:inline-block;margin-top:22px;color:var(--mut);
+  text-decoration:none;font-size:13px;letter-spacing:.04em;
+}
+.back:hover{color:var(--ink)}
+footer{
+  border-top:1px solid var(--line);
+  max-width:860px;margin:40px auto 0;padding:26px 24px 60px;
+  font-size:12px;color:var(--mut);
+}
+.fc{
+  font-size:14px;letter-spacing:.34em;color:var(--ink);
+  margin-bottom:8px;
+}
