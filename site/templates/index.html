@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reserve Defter</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="mast">
+  <img class="logo" alt="Reserve" src="assets/logo.png">
+  <p class="mast-sub">Defter</p>
+  <p class="mast-tag">Londra ağırlama sahnesinin günlük kaydı. Her haber bir Reserve kararına bağlanır.</p>
+  <p class="mast-note">İç kullanım · Yatırımcı ve danışman ekip</p>
+</header>
+<nav class="cats" aria-label="Kategoriler">
+  <div class="cats-scroll">
+    <button class="chip" data-cat="all" aria-pressed="true">Tümü</button>
+    <button class="chip" data-cat="Yeni restoran açılışları" aria-pressed="false">Yeni restoran açılışları</button>
+    <button class="chip" data-cat="Restoran kapanışları" aria-pressed="false">Restoran kapanışları</button>
+    <button class="chip" data-cat="Otel açılışları" aria-pressed="false">Otel açılışları</button>
+    <button class="chip" data-cat="Yeni kafeler" aria-pressed="false">Yeni kafeler</button>
+    <button class="chip" data-cat="Yeni barlar" aria-pressed="false">Yeni barlar</button>
+    <button class="chip" data-cat="Şef transferleri" aria-pressed="false">Şef transferleri</button>
+    <button class="chip" data-cat="Michelin haberleri" aria-pressed="false">Michelin haberleri</button>
+    <button class="chip" data-cat="Pop-up konseptler" aria-pressed="false">Pop-up konseptler</button>
+    <button class="chip" data-cat="Yeni yatırım" aria-pressed="false">Yeni yatırım</button>
+    <button class="chip" data-cat="Ekonomik gelişmeler" aria-pressed="false">Ekonomik gelişmeler</button>
+    <button class="chip" data-cat="Kira piyasası" aria-pressed="false">Kira piyasası</button>
+    <button class="chip" data-cat="İş gücü piyasası" aria-pressed="false">İş gücü piyasası</button>
+    <button class="chip" data-cat="Tüketici davranışı" aria-pressed="false">Tüketici davranışı</button>
+    <button class="chip" data-cat="Öne çıkan mahalleler" aria-pressed="false">Öne çıkan mahalleler</button>
+    <button class="chip" data-cat="Yeni konseptler" aria-pressed="false">Yeni konseptler</button>
+    <button class="chip" data-cat="Yasal değişiklikler" aria-pressed="false">Yasal değişiklikler</button>
+  </div>
+</nav>
+<main class="wrap">
+{{CARDS}}
+</main>
+<footer>
+  <div class="fc">RESERVE</div>
+  Londra · 2026 · Defter, sektörel kayit için iç kullanım belgesidir.
+</footer>
+<script>
+  const chips=document.querySelectorAll('.chip');
+  const cards=document.querySelectorAll('.card');
+  chips.forEach(c=>c.addEventListener('click',()=>{
+    chips.forEach(x=>x.setAttribute('aria-pressed','false'));
+    c.setAttribute('aria-pressed','true');
+    const cat=c.dataset.cat;
+    cards.forEach(card=>{card.style.display=(cat==='all'||card.dataset.cat===cat)?'block':'none';});
+  }));
+</script>
+</body>
+</html>
