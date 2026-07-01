@@ -16,7 +16,7 @@ Reserve nedir: Londra'da ust segment bir ates ve sarap konsepti. Ocakbasi gelene
 
 Bunlar tartismaya kapalidir. Ihlal edilirse taslak reddedilir.
 
-1. **Dil Turkcedir.** Tamami.
+1. **Dil Turkcedir.** Tamami. Turkce diacritikler eksiksiz yazilir: ş, ç, ğ, ı, ö, ü, İ. Ozellikle "şarap" kelimesinde ş dusurulmez.
 2. **Tire yoktur.** Em dash, en dash, stilistik tire kullanilmaz. Virgul, iki nokta, nokta ile yazilir. Aralik icin "ila".
 3. **Her olgusal iddia kaynaklidir.** Bir bilgi kaynakta yoksa yaziya girmez.
 4. **Uydurma yasaktir.** Olmayan sayi, oran, tarih, alinti, isim uretilmez. Kaynakta net bir rakam yoksa rakam verilmez, egilim olarak yazilir.
