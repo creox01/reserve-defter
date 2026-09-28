@@ -1,9 +1,12 @@
 """Notion taslak kuyrugu I/O. Kendi token'iyla calisir."""
 import os
+import time
 import requests
 
 API = "https://api.notion.com/v1"
 VERSION = "2022-06-28"
+
+MAX_RETRIES = 5  # 429 icin ust sinir; asilirsa fail fast
 
 
 def _headers():
@@ -17,6 +20,19 @@ def _headers():
 
 def _db_id():
     return os.environ["NOTION_DB_ID"]  # yoksa fail fast
+
+
+def _request(method, url, **kwargs):
+    """Tek istek yolu. 429'da Notion'in Retry-After suresine uyup tekrar dener."""
+    for attempt in range(MAX_RETRIES):
+        r = requests.request(method, url, headers=_headers(), timeout=30, **kwargs)
+        if r.status_code == 429:
+            wait = int(r.headers.get("Retry-After", "1"))
+            time.sleep(wait)
+            continue
+        r.raise_for_status()
+        return r
+    raise RuntimeError(f"Notion rate limit: {MAX_RETRIES} denemede asilamadi ({url})")
 
 
 def _paragraphs(markdown_body):
@@ -46,8 +62,7 @@ def create_draft(baslik, kategori, kaynaklar, yayin_tarihi, body):
         },
         "children": _paragraphs(body),
     }
-    r = requests.post(f"{API}/pages", headers=_headers(), json=payload, timeout=30)
-    r.raise_for_status()
+    r = _request("POST", f"{API}/pages", json=payload)
     return r.json()["id"]
 
 
@@ -59,9 +74,7 @@ def query_by_status(statuses):
         body = {"filter": filt, "page_size": 100}
         if cursor:
             body["start_cursor"] = cursor
-        r = requests.post(f"{API}/databases/{_db_id()}/query",
-                          headers=_headers(), json=body, timeout=30)
-        r.raise_for_status()
+        r = _request("POST", f"{API}/databases/{_db_id()}/query", json=body)
         data = r.json()
         pages.extend(data["results"])
         if not data.get("has_more"):
@@ -82,9 +95,7 @@ def existing_source_links():
 
 
 def page_body(page_id):
-    r = requests.get(f"{API}/blocks/{page_id}/children?page_size=100",
-                    headers=_headers(), timeout=30)
-    r.raise_for_status()
+    r = _request("GET", f"{API}/blocks/{page_id}/children?page_size=100")
     paras = []
     for b in r.json()["results"]:
         if b["type"] == "paragraph":
@@ -96,5 +107,4 @@ def page_body(page_id):
 
 def mark_published(page_id):
     payload = {"properties": {"Durum": {"select": {"name": "Yayında"}}}}
-    r = requests.patch(f"{API}/pages/{page_id}", headers=_headers(), json=payload, timeout=30)
-    r.raise_for_status()
+    _request("PATCH", f"{API}/pages/{page_id}", json=payload)
